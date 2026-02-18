@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1771392389 source:b:\c-krypt\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
