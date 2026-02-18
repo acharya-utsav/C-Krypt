@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<ctype.h>
 #include <string.h>
 
 //DATA STRUCTURE:
@@ -48,7 +49,7 @@ int main() {
             default:
                 printf("\n[!] Invalid Choice.\n");
         }
-        printf("\nPress Enter to continue...");
+        printf("\n--Process Finished. Press Enter to return to menu--");
         getchar();
         getchar(); // Pause the screen
     }
@@ -111,21 +112,37 @@ void searchEntry() {
     int found = 0;
     FILE *fp = fopen("vault.dat", "rb");
 
-    if (!fp)
+    if (!fp) {
+        printf("\n[!] Vault is empty.\n");
         return;
+    }
 
     printf("\nEnter Website to Search: ");
     scanf("%s", target);
 
+    // Step 1: Convert user input to lowercase
+    for(int i = 0; target[i]; i++) {
+        target[i] = tolower(target[i]);
+    }
+
     while(fread(&entry, sizeof(VaultEntry), 1, fp)) {
-        if(strcmp(entry.website, target) == 0) {
-            printf("\n[RECORD FOUND]\n");
-            printf("User: %s\nPass: %s\n", entry.username, entry.password);
+        // Step 2: Create a temporary lowercase version of the stored website
+        char storedLower[50];
+        strcpy(storedLower, entry.website);
+        for(int i = 0; storedLower[i]; i++) {
+            storedLower[i] = tolower(storedLower[i]);
+        }
+
+        // Step 3: Compare both lowercase strings
+        if(strcmp(storedLower, target) == 0) {
+            printf("\n--- Match Found ---\n");
+            printf("Site: %s\nUser: %s\nPass: %s\n", entry.website, entry.username, entry.password);
             found = 1;
             break;
         }
     }
-    if(!found)
-        printf("\n[!] No entry found for '%s'.\n", target);
+
+    if(!found) printf("\n[!] No match found for '%s'.\n", target);
     fclose(fp);
 }
+>>>>>>> 439878d (Fix: Case-insensitive search implemented using tolower)
