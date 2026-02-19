@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include<ctype.h>
 #include <string.h>
+#define SECRET_KEY 'K'
+
+void encryptDecrypt(char *data, char key) {
+    for (int i = 0; i < strlen(data); i++) {
+        data[i] = data[i] ^ key;
+    }
+}
 
 //DATA STRUCTURE:
 typedef struct {
@@ -80,8 +87,9 @@ void addEntry() {
     scanf("%s", entry.username);
     printf("Password: ");
     scanf("%s", entry.password);
-
-    // fwrite writes the entire struct block to the file at once
+    //SCRAMBLE THE PASSWORD
+    encryptDecrypt(entry.password, SECRET_KEY);
+    //SAVE THE SCRAMBLED DATA TO THE FILE
     fwrite(&entry, sizeof(VaultEntry), 1, fp);
     fclose(fp);
     printf("\n[SUCCESS] Entry locked in vault.dat\n");
@@ -101,6 +109,9 @@ void viewEntries() {
 
     // fread reads until the end of the file
     while(fread(&entry, sizeof(VaultEntry), 1, fp)) {
+            //UNSCRAMBLE THE DATA LOADED FROM FILE
+        encryptDecrypt(entry.password, SECRET_KEY);
+            //DISPLAY THE READABLE PASSWORD
         printf("%-20s %-20s %-20s\n", entry.website, entry.username, entry.password);
     }
     fclose(fp);
@@ -120,21 +131,23 @@ void searchEntry() {
     printf("\nEnter Website to Search: ");
     scanf("%s", target);
 
-    // Step 1: Convert user input to lowercase
+    //Convert user input to lowercase
     for(int i = 0; target[i]; i++) {
         target[i] = tolower(target[i]);
     }
 
     while(fread(&entry, sizeof(VaultEntry), 1, fp)) {
-        // Step 2: Create a temporary lowercase version of the stored website
+        //Create a temporary lowercase version of the stored website
         char storedLower[50];
         strcpy(storedLower, entry.website);
         for(int i = 0; storedLower[i]; i++) {
             storedLower[i] = tolower(storedLower[i]);
         }
 
-        // Step 3: Compare both lowercase strings
+        //Compare both lowercase strings
         if(strcmp(storedLower, target) == 0) {
+                //DECRYPT THE PASSWORD BEFORE PRINTING
+            encryptDecrypt(entry.password, SECRET_KEY);
             printf("\n--- Match Found ---\n");
             printf("WebSite: %s\nUsername: %s\nPassword: %s\n", entry.website, entry.username, entry.password);
             found = 1;
