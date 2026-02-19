@@ -136,7 +136,7 @@ void searchEntry() {
         // Step 3: Compare both lowercase strings
         if(strcmp(storedLower, target) == 0) {
             printf("\n--- Match Found ---\n");
-            printf("Site: %s\nUser: %s\nPass: %s\n", entry.website, entry.username, entry.password);
+            printf("WebSite: %s\nUsername: %s\nPassword: %s\n", entry.website, entry.username, entry.password);
             found = 1;
             break;
         }
@@ -145,4 +145,3 @@ void searchEntry() {
     if(!found) printf("\n[!] No match found for '%s'.\n", target);
     fclose(fp);
 }
->>>>>>> 439878d (Fix: Case-insensitive search implemented using tolower)
