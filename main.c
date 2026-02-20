@@ -3,6 +3,7 @@
 #include<ctype.h>
 #include <string.h>
 #define SECRET_KEY 'K'
+#define MASTER_PWD "KryptAdmin@2026" // The password to open the app
 
 void encryptDecrypt(char *data, char key) {
     for (int i = 0; i < strlen(data); i++) {
@@ -24,6 +25,31 @@ void viewEntries();
 void searchEntry();
 
 int main() {
+    char input[50];
+    int attempts = 3;
+    int authenticated = 0;
+
+    printf("=== C-KRYPT SECURITY SYSTEM ===\n");
+
+    while (attempts > 0) {
+        printf("Enter Master Password: ");
+        scanf("%s", input);
+
+        if (strcmp(input, MASTER_PWD) == 0) {
+            printf("\n[✔] Access Granted!\n");
+            authenticated = 1;
+            break;
+        } else {
+            attempts--;
+            printf("[✘] Incorrect Password. Attempts left: %d\n", attempts);
+        }
+    }
+
+    if (!authenticated) {
+        printf("\n[!!!] Security Lockdown. Exiting...\n");
+        return 0; // Close the program
+    }
+
     int choice;
 
     while(1) {
