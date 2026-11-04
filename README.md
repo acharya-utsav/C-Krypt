@@ -33,10 +33,3 @@ C-Krypt uses symmetric XOR encryption to scramble passwords before storing them.
 1. Open `C-Krypt.cbp` in Code::Blocks.
 2. Build and run the project.
 3. Use the menu to manage your credentials.
-## ⚙️ How to Run
-1. Open the project in **Code::Blocks**.
-2. Build and Run (`F9`).
-3. Add your passwords and keep them safe!
-
----
-*Created as part of a C Programming Project.*
