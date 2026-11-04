@@ -1,24 +1,38 @@
-# C-Krypt 🔐
-A lightweight, secure Password Vault written in C.
+# C-Krypt
 
-## 🚀 Features
-- **Secure Storage**: Uses a binary file (`vault.dat`) to store credentials.
-- **XOR Encryption**: Implements symmetric bitwise XOR encryption to scramble passwords.
-- **Case-Insensitive Search**: Easily find your credentials regardless of capitalization.
-- **Efficient Data Handling**: Uses structs and direct file I/O for speed.
+## Mini Project
+C Programming
 
-## 🛠️ How it Works
-### Encryption Logic
-C-Krypt uses a symmetric encryption algorithm. The password is XORed with a `SECRET_KEY` before being saved. To retrieve it, the same key is applied to reverse the process.
+## Developed By
+Utsav Acharya  
+Computer Engineering, IOE, TU
 
-$$Data \oplus Key = EncryptedData$$
-$$EncryptedData \oplus Key = Data$$
+## Project Description
+A console-based password vault developed in C to store, manage, and retrieve credentials using file handling and basic XOR encryption.
 
-## 📂 Project Structure
-- `main.c`: Contains the core logic and encryption engine.
-- `C-Krypt.cbp`: Code::Blocks project file.
-- `.gitignore`: Ensures binary junk like `/bin` and `/obj` stay out of the repo.
+## Features
+- Secure credential storage in a binary file (`vault.dat`)
+- XOR encryption for password scrambling
+- Case-insensitive credential search
+- Credential management
+- Efficient data handling using structures
+- File handling for persistent data storage
 
+## Technologies Used
+- C
+- Code::Blocks
+- GCC Compiler
+- Git and GitHub
+
+## How It Works
+C-Krypt uses symmetric XOR encryption to scramble passwords before storing them. Applying the same key to the encrypted data restores the original password.
+
+**Note:** XOR encryption is implemented for educational purposes and is not suitable for protecting real-world sensitive credentials.
+
+## How to Run
+1. Open `C-Krypt.cbp` in Code::Blocks.
+2. Build and run the project.
+3. Use the menu to manage your credentials.
 ## ⚙️ How to Run
 1. Open the project in **Code::Blocks**.
 2. Build and Run (`F9`).
